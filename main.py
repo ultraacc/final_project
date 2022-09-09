@@ -2,6 +2,7 @@ import argparse
 import csv
 import pandas
 
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("-w", help="set new account")
@@ -25,6 +26,7 @@ def main():
         title = args.d
         delete_file(title)
 
+
 def delete_file(text):
     with open("accounts.csv", "r") as f:
         reader = csv.reader(f)
@@ -34,21 +36,24 @@ def delete_file(text):
                 break
             count += 1
         try:
-            df = pandas.read_csv('accounts.csv')
+            df = pandas.read_csv("accounts.csv")
             df = df.drop(int(count))
-            df.to_csv('accounts.csv', index=False)
+            df.to_csv("accounts.csv", index=False)
         except:
             print("Invalid account")
+
+
 def read_file():
     with open("accounts.csv", "r") as f:
         reader = csv.reader(f)
         for line in reader:
             print(line)
 
+
 def read_account(text):
     with open("accounts.csv", "r") as f:
         reader = csv.reader(f)
-        #each loop it checks for the key and if its found count turns into 1 which prevents the error message at the end of the loop
+        # each loop it checks for the key and if its found count turns into 1 which prevents the error message at the end of the loop
         count = 0
         for line in reader:
             if text in line:
@@ -59,16 +64,17 @@ def read_account(text):
 
 
 def new_account(text):
-    #gets user input for new account
+    # gets user input for new account
     username = input("Username: ")
     password = input("Password: ")
-    data = [text,username,password]
+    data = [text, username, password]
 
     with open("accounts.csv", "a", newline="\n") as file:
         writer = csv.writer(file)
         writer.writerow(data)
 
     print("Account added successfully!")
+
 
 if __name__ == "__main__":
     main()
